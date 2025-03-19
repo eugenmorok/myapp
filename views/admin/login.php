@@ -10,9 +10,10 @@
         <p style="color: red;"><?= htmlspecialchars($error) ?></p>
     <?php endif; ?>
     <form method="POST">
-        <label for="password">Пароль:</label>
-        <input type="password" name="password" id="password" required>
-        <button type="submit">Войти</button>
-    </form>
+    <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+    <label for="password">Пароль:</label>
+    <input type="password" name="password" id="password" required>
+    <button type="submit">Войти</button>
+</form>
 </body>
 </html>

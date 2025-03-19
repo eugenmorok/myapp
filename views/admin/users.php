@@ -13,12 +13,13 @@
 
     <h2>Добавить пользователя</h2>
     <form method="POST">
-        <label for="name">Имя:</label>
-        <input type="text" name="name" id="name" required>
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
-        <button type="submit" name="add_user">Добавить</button>
-    </form>
+    <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+    <label for="name">Имя:</label>
+    <input type="text" name="name" id="name" required>
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required>
+    <button type="submit" name="add_user">Добавить</button>
+</form>
 
     <h2>Список пользователей</h2>
     <ul>
@@ -26,10 +27,12 @@
             <li>
                 <?= htmlspecialchars($user['name']) ?> 
                 (<?= htmlspecialchars($user['email']) ?>)
-                <form method="POST" style="display: inline;">
-                    <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
-                    <button type="submit" name="delete_user">Удалить</button>
-                </form>
+<!-- Для формы удаления -->
+<form method="POST" style="display: inline;">
+    <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+    <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
+    <button type="submit" name="delete_user">Удалить</button>
+</form>
             </li>
         <?php endforeach; ?>
     </ul>
