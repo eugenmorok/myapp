@@ -3,7 +3,11 @@
 
 // Автозагрузка классов
 spl_autoload_register(function ($class) {
-    require 'controllers/' . $class . '.php';
+    if (file_exists("controllers/{$class}.php")) {
+        require "controllers/{$class}.php";
+    } elseif (file_exists("models/{$class}.php")) {
+        require "models/{$class}.php";
+    }
 });
 
 // Функция для рендеринга представлений

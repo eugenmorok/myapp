@@ -3,10 +3,11 @@
 
 class HomeController {
     public function index() {
-        // Получаем данные из базы данных
-        $pdo = db();
-        $stmt = $pdo->query("SELECT * FROM users");
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Создаем экземпляр модели User
+        $userModel = new User();
+
+        // Получаем всех пользователей
+        $users = $userModel->all();
 
         // Передаем данные в представление
         view('home', ['title' => 'Главная страница', 'users' => $users]);
