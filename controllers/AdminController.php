@@ -2,9 +2,6 @@
 // controllers/AdminController.php
 
 class AdminController {
-    // Пароль администратора (в реальном проекте храните его в .env или конфигурации)
-    private $adminPassword = 'admin123';
-
     // Проверка авторизации
     private function checkAuth() {
         session_start();
@@ -18,7 +15,9 @@ class AdminController {
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $password = $_POST['password'] ?? '';
-            if ($password === $this->adminPassword) {
+            $hash = $_ENV['ADMIN_PASSWORD_HASH'] ?? '';
+
+            if ($password && $hash && password_verify($password, $hash)) {
                 session_start();
                 $_SESSION['admin_logged_in'] = true;
                 header('Location: /admin/users');
