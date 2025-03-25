@@ -1,4 +1,6 @@
+
 <?php
+/*
 // models/User.php
 
 class User {
@@ -41,5 +43,42 @@ class User {
         $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->rowCount();
+        
     }
+}
+*/
+
+
+// models/User.php
+
+require_once __DIR__ . '/../core/ORM.php';
+
+class User extends ORM {
+    // Указываем таблицу и первичный ключ
+    protected $table = 'users';
+    protected $primary_key = 'id';
+
+    // Дополнительные методы, специфичные для пользователей
+    public function findByEmail($email) {
+        return $this->where('email', '=', $email)->find();
+    }
+
+    // Можно добавить другие пользовательские методы
+    public function getActiveUsers() {
+        return $this->where('is_active', '=', 1)->find_all();
+    }
+
+    public function update($id, array $data) {
+        $set = [];
+        foreach ($data as $key => $value) {
+            $set[] = "$key = :$key";
+        }
+        $set = implode(', ', $set);
+    
+        $data['id'] = $id;
+    
+        $stmt = $this->pdo->prepare("UPDATE {$this->table} SET $set WHERE id = :id");
+        return $stmt->execute($data);
+    }
+
 }
