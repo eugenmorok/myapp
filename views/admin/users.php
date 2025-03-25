@@ -24,11 +24,11 @@
                 <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                 <div class="form-group">
                     <label for="name" class="form-label">Имя:</label>
-                    <input type="text" name="name" id="name" class="form-input" required>
+                    <input type="text" name="name" id="name" class="form-input narrow-input" required>
                 </div>
                 <div class="form-group">
                     <label for="email" class="form-label">Email:</label>
-                    <input type="email" name="email" id="email" class="form-input" required>
+                    <input type="email" name="email" id="email" class="form-input narrow-input" required>
                 </div>
                 <button type="submit" name="add_user" class="form-button">Добавить</button>
             </form>

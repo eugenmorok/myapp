@@ -241,3 +241,43 @@ body {
 .social-link:hover {
     color: var(--secondary-color);
 }
+
+/* Добавляем новый класс для узких полей ввода */
+.narrow-input {
+    max-width: 400px; /* Можно регулировать по вашему вкусу */
+    width: 100%;
+}
+
+/* Обновляем стили формы */
+.user-form {
+    margin-top: 20px;
+    max-width: 500px; /* Ограничиваем ширину всей формы */
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+@media (max-width: 768px) {
+    .narrow-input {
+        width: 100%; /* На мобильных занимает всю доступную ширину */
+    }
+}
+
+/* Добавляем отступы и выравнивание */
+.user-form-section {
+    padding: 30px;
+}
+
+.section-title {
+    margin-bottom: 20px;
+}
+
+.form-button {
+    margin-top: 10px;
+    width: auto; /* Чтобы кнопка не растягивалась */
+    padding: 10px 25px;
+}
