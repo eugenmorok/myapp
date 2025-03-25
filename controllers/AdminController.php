@@ -67,31 +67,35 @@ view('admin/users', ['users' => $users]);
     // Страница редактирования пользователя
     public function edit($id) {
         $this->checkAuth();
-        $user = new User();
-
-        // Получение данных пользователя
-        $userData = $user->find($id);
-        if (!$userData) {
+        $userModel = new User();
+        
+        $user = $userModel->find($id);
+        if (!$user) {
             header('Location: /admin/users');
             exit;
         }
-
-        // Обработка формы
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
+    
+        view('admin/edit_user', ['user' => $user]);
+    }
+    
+    public function update($id) {
+        $this->checkAuth();
+        $userModel = new User();
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
                 'name' => $_POST['name'] ?? '',
                 'email' => $_POST['email'] ?? '',
                 'updated_at' => date('Y-m-d H:i:s')
             ];
-            
+    
             if ($data['name'] && $data['email']) {
-                $user->update($id, $data);
-                header('Location: /admin/users');
-                exit;
+                $userModel->update($id, $data);
             }
         }
-
-        view('admin/edit_user', ['user' => $userData]);
+    
+        header('Location: /admin/users');
+        exit;
     }
 
     // Выход из админки
@@ -102,4 +106,9 @@ view('admin/users', ['users' => $users]);
         header('Location: /admin/login');
         exit;
     }
+
+
+
+
+
 }

@@ -66,4 +66,18 @@ class User extends ORM {
     public function getActiveUsers() {
         return $this->where('is_active', '=', 1)->find_all();
     }
+
+    public function update($id, array $data) {
+        $set = [];
+        foreach ($data as $key => $value) {
+            $set[] = "$key = :$key";
+        }
+        $set = implode(', ', $set);
+    
+        $data['id'] = $id;
+    
+        $stmt = $this->pdo->prepare("UPDATE {$this->table} SET $set WHERE id = :id");
+        return $stmt->execute($data);
+    }
+
 }

@@ -53,6 +53,7 @@
                     <div class="user-actions">
                         <!-- Форма редактирования -->
                         <form method="GET" action="/admin/users/edit/<?= $user['id'] ?>" style="display: inline;">
+                            <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                             <button type="submit">Редактировать</button>
                         </form>
                         
